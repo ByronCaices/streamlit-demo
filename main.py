@@ -16,27 +16,70 @@ import csv
 
 # --- Configuración de la página ---
 st.set_page_config(
-    page_title="Dashboard: Usach Premium Stats",
-    page_icon=":bar_chart:",
-    layout="wide"
+    page_title="Dashboard: Usach Premium Stats",  # Configura el título de la página del navegador
+    page_icon=":bar_chart:",  # Configura el ícono que aparece en la pestaña del navegador
+    layout="wide"  # Configura el diseño de la página como ancho completo
 )
 
 # --- Definición de la paleta de colores ---
 COLORS = {
-    "primary": "#00A499",
-    "secondary": "#EA7600",
-    "tertiary": "#394049"
+    "primary": "#00A499",  # Color principal para elementos destacados
+    "secondary": "#EA7600",  # Color secundario para elementos complementarios
+    "tertiary": "#394049"  # Color terciario para fondos y texto
 }
 
 # --- Título y descripción general ---
-st.title("Demo de Dashboard con Streamlit")
-st.markdown("Esta demo muestra cómo crear un dashboard interactivo con Streamlit, usando un CSV de ejemplo.")
+st.title("Demo de Dashboard con Streamlit")  # Muestra el título principal del dashboard
+st.markdown("Esta demo muestra cómo crear un dashboard interactivo con Streamlit, usando un CSV de ejemplo.")  # Muestra una descripción general del dashboard
 
-# --- Sidebar de navegación ---
+# --- Sidebar: Logo y enlaces ---
+# Logo de Usach Premium
+st.sidebar.image(
+    "./images/logoDark.png",  # Muestra el logo en la barra lateral
+    use_container_width=True  # Ajusta el tamaño del logo al contenedor
+)
+
+# Sección de Usach Premium con íconos sociales
+st.sidebar.markdown("# Usach Premium", unsafe_allow_html=True)  # Muestra el título de la sección en la barra lateral
+st.sidebar.markdown(
+    """
+    <div style="display: flex; gap: 10px;">
+        <a href="https://www.youtube.com/@UsachPremium?sub_confirmation=1" target="_blank">
+            <img src="https://img.icons8.com/?size=100&id=85162&format=png&color=000000" alt="YouTube" width="24"/>
+        </a>
+        <a href="https://www.instagram.com/usach.premium/" target="_blank">
+            <img src="https://img.icons8.com/?size=100&id=32320&format=png&color=000000" alt="Instagram" width="24"/>
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# --- Sidebar: Navegación entre páginas ---
 st.sidebar.title("Navegación")
 page = st.sidebar.radio("Ir a", [
     "Datos crudos", "Visión general", "Series de tiempo", "Distribuciones", "Estadísticas"
 ])
+
+
+st.sidebar.markdown("---")
+
+# Sección del autor con LinkedIn y GitHub
+st.sidebar.markdown("### Autor", unsafe_allow_html=True)
+st.sidebar.markdown("**Byron Caices**")
+st.sidebar.markdown(
+    """
+    <div style="display: flex; gap: 10px;">
+        <a href="https://www.linkedin.com/in/byron-caices/" target="_blank">
+            <img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="LinkedIn" width="24"/>
+        </a>
+        <a href="https://github.com/ByronCaices/streamlit-demo" target="_blank">
+            <img src="https://img.icons8.com/ios-glyphs/48/000000/github.png" alt="GitHub" width="24"/>
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # --- Función para cargar datos del CSV ---
 @st.cache_data
@@ -63,7 +106,7 @@ if page == "Datos crudos":
     st.markdown("Se muestran los encabezados y los primeros registros tal cual se cargan.")
     st.write("Encabezados:", headers)
     st.write("Primeros registros:")
-    st.write(data[:10])
+    st.dataframe(data[:10], use_container_width=True)
 
 # --- Página: Visión general ---
 elif page == "Visión general":
