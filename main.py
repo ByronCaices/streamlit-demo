@@ -82,8 +82,8 @@ st.sidebar.markdown(
 )
 
 # --- Función para cargar datos del CSV ---
-@st.cache_data
-def cargar_datos(path):
+@st.cache_data  # Cachea los datos para mejorar el rendimiento
+def cargar_datos(path): # 
     """
     Carga el CSV y devuelve encabezados y lista de filas.
     Cada fila es una lista de strings.
@@ -119,19 +119,17 @@ elif page == "Visión general":
     # 2) Total de vistas
     total_vistas = 0
     for row in data:
-        try:
-            total_vistas += int(row[7])
-        except:
-            pass
-    
+        total_vistas += int(row[7])
+        
     # 3) Promedio de likes
     suma_likes = 0
     for row in data:
-        try:
-            suma_likes += int(row[8])
-        except:
-            pass
-    promedio_likes = round(suma_likes / total_videos, 2) if total_videos else 0
+        suma_likes += int(row[8])
+    # Calcular promedio de likes
+    if total_videos == 0:
+        promedio_likes = 0
+    else:
+        promedio_likes = round(suma_likes / total_videos, 2)
 
     # Mostrar las 3 métricas
     col1, col2, col3 = st.columns(3)
@@ -148,7 +146,7 @@ elif page == "Visión general":
             return 0
     top5 = sorted(data, key=get_vistas, reverse=True)[:5]
     for i, row in enumerate(top5, 1):
-        st.write(f"{i}. **{row[1]}**: {get_vistas(row)} vistas")
+        st.write(str(i) + ". **" + row[1] + "**: " + str(get_vistas(row)) + " vistas")
 
 # --- Página: Series de tiempo ---
 elif page == "Series de tiempo":
@@ -158,7 +156,7 @@ elif page == "Series de tiempo":
     # Definir opciones de métrica
     metric_options = {"Vistas": 7, "Likes": 8, "Comentarios": 9}
     metric_name = st.selectbox("Selecciona la métrica", list(metric_options.keys()))
-    idx = metric_options[metric_name]
+    idx = metric_options[metric_name] # Índice de la métrica seleccionada
     
     # Construir lista de valores
     values = []
