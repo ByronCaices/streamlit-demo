@@ -1,8 +1,5 @@
-# demo_streamlit_explicativo.py
-
 """
-Demo explicativa de Streamlit para estudiantes iniciados en Python.
-Proposito: mostrar de forma muy comentada y paso a paso cómo:
+Demo explicativa de Streamlit
   1) Cargar un CSV muy sencillo.
   2) Mostrar datos crudos en una tabla.
   3) Crear un gráfico de barras verticales.
